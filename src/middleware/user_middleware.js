@@ -11,6 +11,7 @@ const {
   userLoginParameterError,
   verifyPasswordError,
   userPasswordEncryptionError,
+  userPasswordMismatch,
 } = require('../constant/user_error_type_constant');
 // 判断用户密码是否符合格式;
 const userPassWordFormatIsStandard = async (ctx, next) => {
@@ -77,9 +78,29 @@ const userPasswordEncryption = async (ctx, next) => {
     return;
   }
 };
+// 验证用户密码;
+const verifyPassword = async (ctx, next) => {
+  try {
+    // 获取用户请求信息;
+    const { user_name, user_pwd } = ctx.request.body;
+    // 根据用户名查找用户数据库信息;
+    const res = await getUserInfo({ user_name });
+    // 如果用户输入的密码与数据库不匹配;
+    if (!bcrypt.compareSync(user_pwd, res.user_pwd)) {
+      ctx.app.emit('error', userPasswordMismatch, ctx);
+      return;
+    }
+    await next();
+  } catch (error) {
+    console.error('校验密码失败', ctx.request.body);
+    ctx.app.emit('error', verifyPasswordError, ctx);
+    return;
+  }
+};
 
 module.exports = {
   userLoginParameter,
   userPassWordFormatIsStandard,
   userPasswordEncryption,
+  verifyPassword,
 };

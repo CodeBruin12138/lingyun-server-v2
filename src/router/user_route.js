@@ -4,6 +4,7 @@ const {
   userPassWordFormatIsStandard,
   userLoginParameter,
   userPasswordEncryption,
+  verifyPassword,
 } = require('../middleware/user_middleware');
 // 控制器;
 const {
@@ -20,5 +21,5 @@ router.post(
   userRegistration
 );
 // 用户登录接口;
-router.post('/login', userLoginParameter, userLogin);
+router.post('/login', userLoginParameter, verifyPassword, userLogin);
 module.exports = router;

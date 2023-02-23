@@ -14,6 +14,7 @@ class UserService {
   async getUserInfo({
     id,
     user_name,
+    user_pwd,
     user_title,
     user_portrait,
     user_age,
@@ -27,6 +28,7 @@ class UserService {
     // 如果参数存在就拷贝到where条件里面;
     id && Object.assign(whereOpt, { id });
     user_name && Object.assign(whereOpt, { user_name });
+    user_pwd && Object.assign(whereOpt, { user_pwd });
     user_title && Object.assign(whereOpt, { user_title });
     user_portrait && Object.assign(whereOpt, { user_portrait });
     user_age && Object.assign(whereOpt, { user_age });
@@ -39,6 +41,7 @@ class UserService {
       attributes: [
         'id',
         'user_name',
+        'user_pwd',
         'user_title',
         'user_portrait',
         'user_age',

@@ -26,4 +26,8 @@ module.exports = {
     code: '10006',
     message: '用户密码加密失败',
   },
+  userPasswordMismatch: {
+    code: '10007',
+    message: '用户密码不匹配',
+  },
 };
