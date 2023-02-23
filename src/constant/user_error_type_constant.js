@@ -30,4 +30,8 @@ module.exports = {
     code: '10007',
     message: '用户密码不匹配',
   },
+  userLoginError: {
+    code: '10008',
+    message: '用户登陆失败',
+  },
 };

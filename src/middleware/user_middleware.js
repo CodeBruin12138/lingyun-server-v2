@@ -32,12 +32,12 @@ const userPassWordFormatIsStandard = async (ctx, next) => {
       ctx.app.emit('error', userLoginParameterError, ctx);
       return;
     }
-    await next();
   } catch (error) {
     console.error('校验密码失败', ctx.request.body);
     ctx.app.emit('error', verifyPasswordError, ctx);
     return;
   }
+  await next();
 };
 // 判断用户登录参数是否完整;
 const userLoginParameter = async (ctx, next) => {
@@ -54,12 +54,12 @@ const userLoginParameter = async (ctx, next) => {
       ctx.app.emit('error', userNameInexistence, ctx);
       return;
     }
-    await next();
   } catch (error) {
     console.error('检查用户参数失败', ctx.request.body);
     ctx.app.emit('error', userLoginParameterError, ctx);
     return;
   }
+  await next();
 };
 // 用户密码加密;
 const userPasswordEncryption = async (ctx, next) => {
@@ -90,12 +90,12 @@ const verifyPassword = async (ctx, next) => {
       ctx.app.emit('error', userPasswordMismatch, ctx);
       return;
     }
-    await next();
   } catch (error) {
     console.error('校验密码失败', ctx.request.body);
     ctx.app.emit('error', verifyPasswordError, ctx);
     return;
   }
+  await next();
 };
 
 module.exports = {

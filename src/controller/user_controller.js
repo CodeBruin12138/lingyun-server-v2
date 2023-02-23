@@ -1,11 +1,13 @@
 /**
  * 用户相关的控制器;
  */
+const jwt = require('jsonwebtoken');
 // 数据库操作;
-const { createUser } = require('../service/user_service');
+const { createUser, getUserInfo } = require('../service/user_service');
 // 错误类型;
 const {
   userRegistrationError,
+  userLoginError,
 } = require('../constant/user_error_type_constant');
 class UserController {
   // 用户注册控制器;
@@ -39,7 +41,28 @@ class UserController {
   // 用户登录控制器;
   async userLogin(ctx) {
     try {
-      ctx.body = '登陆成功';
+      // 获取用户请求信息;
+      const { user_name } = ctx.request.body;
+      // 根据用户名获取用户数据库信息并剔除用户密码;
+      const { user_pwd, ...res } = await getUserInfo({ user_name });
+      ctx.body = {
+        code: 0,
+        message: '登录成功',
+        result: {
+          token: jwt.sign(res, 'lingyun', { expiresIn: '1d' }),
+          user: res,
+        },
+      };
+    } catch (error) {
+      console.error('用户登录失败', error);
+      ctx.app.emit('error', userLoginError, ctx);
+      return;
+    }
+  }
+  // 用户修改密码控制器;
+  async userUpdatePassword(ctx) {
+    try {
+      ctx.body = '修改成功';
     } catch (error) {}
   }
 }
