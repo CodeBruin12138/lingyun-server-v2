@@ -3,7 +3,10 @@
  */
 // 数据库操作;
 const { createUser } = require('../service/user_service');
-
+// 错误类型;
+const {
+  userRegistrationError,
+} = require('../constant/user_error_type_constant');
 class UserController {
   // 用户注册控制器;
   async userRegistration(ctx) {
@@ -27,11 +30,17 @@ class UserController {
           user_explained: res.user_explained,
         },
       };
-    } catch (error) {}
+    } catch (error) {
+      console.error('用户注册失败', error);
+      ctx.app.emit('error', userRegistrationError, ctx);
+      return;
+    }
   }
   // 用户登录控制器;
   async userLogin(ctx) {
-    ctx.body = '登陆成功';
+    try {
+      ctx.body = '登陆成功';
+    } catch (error) {}
   }
 }
 
