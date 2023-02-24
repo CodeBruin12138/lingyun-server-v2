@@ -9,7 +9,10 @@ const {
   userPasswordEncryption,
   verifyPassword,
 } = require('../middleware/user_middleware');
-const { verifyUserToken } = require('../middleware/auth_middleware');
+const {
+  verifyUserToken,
+  verifyUserIsAdmin,
+} = require('../middleware/auth_middleware');
 // 控制器;
 const {
   userRegistration,
@@ -37,6 +40,12 @@ router.patch(
   userUpdatePassword
 );
 // 管理员登录;
-router.post('/adminLogin', userLoginParameter, verifyPassword, adminLogin);
+router.post(
+  '/adminLogin',
+  userLoginParameter,
+  verifyPassword,
+  verifyUserIsAdmin,
+  adminLogin
+);
 
 module.exports = router;

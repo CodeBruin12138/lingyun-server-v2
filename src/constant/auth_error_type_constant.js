@@ -10,4 +10,8 @@ module.exports = {
     code: '20002',
     message: '无效的token',
   },
+  unsupportedFormat: {
+    code: '20003',
+    message: '不支持的文件格式',
+  },
 };

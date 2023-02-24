@@ -99,21 +99,14 @@ class UserController {
       const { user_name } = ctx.request.body;
       // 根据用户名获取用户数据库信息;
       const { user_pwd, ...res } = await getUserInfo({ user_name });
-      // 如果账号数据存在店铺;
-      if (res.is_admin !== 0 && res.user_shop !== 0) {
-        ctx.body = {
-          code: 0,
-          message: '管理员登录成功',
-          result: {
-            token: jwt.sign(res, 'lingyun', { expiresIn: '1d' }),
-            user: res,
-          },
-        };
-      } else {
-        console.error('该账号非管理员账号', ctx.request.body);
-        ctx.app.emit('error', notIsAdmin, ctx);
-        return;
-      }
+      ctx.body = {
+        code: 0,
+        message: '管理员登录成功',
+        result: {
+          token: jwt.sign(res, 'lingyun', { expiresIn: '1d' }),
+          user: res,
+        },
+      };
     } catch (error) {
       console.error('管理员登录失败', error);
       ctx.app.emit('error', adminLoginError, ctx);
