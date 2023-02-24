@@ -72,15 +72,16 @@ class UserService {
     // 定义新的用户信息;
     const newUser = {};
     // 如果参数存在就赋值到新的用户信息里;
-    user_pwd && Object.assign({ user_pwd });
-    user_title && Object.assign({ user_title });
-    user_portrait && Object.assign({ user_portrait });
-    user_age && Object.assign({ user_age });
-    user_sex && Object.assign({ user_sex });
-    user_explained && Object.assign({ user_explained });
-    user_shop && Object.assign({ user_shop });
-    is_admin && Object.assign({ is_admin });
-    const res = await UserModel.update(newUser, { whereOpt });
+    user_pwd && Object.assign(newUser, { user_pwd });
+    user_title && Object.assign(newUser, { user_title });
+    user_portrait && Object.assign(newUser, { user_portrait });
+    user_age && Object.assign(newUser, { user_age });
+    user_sex && Object.assign(newUser, { user_sex });
+    user_explained && Object.assign(newUser, { user_explained });
+    user_shop && Object.assign(newUser, { user_shop });
+    is_admin && Object.assign(newUser, { is_admin });
+    const res = await UserModel.update(newUser, { where: whereOpt });
+    return res[0] > 0 ? true : false;
   }
 }
 // 导出实例化对象;

@@ -25,7 +25,7 @@ const userPassWordFormatIsStandard = async (ctx, next) => {
     }
     // 定义正则表达式;
     const userPassWordFormatStandard =
-      /^\S*(?=\S{6,})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/;
+      /^\S*(?=\S{6,})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])\S*$/;
     // 判断是否符合正则;
     const res = userPassWordFormatStandard.test(user_pwd);
     if (!res) {

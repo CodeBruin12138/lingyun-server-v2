@@ -1,3 +1,6 @@
+/**
+ * 用户相关路由;
+ */
 const Router = require('@koa/router');
 // 中间件;
 const {
@@ -12,6 +15,7 @@ const {
   userRegistration,
   userLogin,
   userUpdatePassword,
+  adminLogin,
 } = require('../controller/user_controller');
 // 实例化路由并绑定前缀;
 const router = new Router({ prefix: '/user' });
@@ -32,5 +36,7 @@ router.patch(
   userPasswordEncryption,
   userUpdatePassword
 );
+// 管理员登录;
+router.post('/adminLogin', userLoginParameter, verifyPassword, adminLogin);
 
 module.exports = router;

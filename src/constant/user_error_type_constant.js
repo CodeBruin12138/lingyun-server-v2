@@ -38,4 +38,12 @@ module.exports = {
     code: '10009',
     message: '修改密码失败',
   },
+  adminLoginError: {
+    code: '10010',
+    message: '管理员登录失败',
+  },
+  notIsAdmin: {
+    code: '10011',
+    message: '该账号非管理员账号',
+  },
 };
