@@ -8,6 +8,7 @@ const { createUser, getUserInfo } = require('../service/user_service');
 const {
   userRegistrationError,
   userLoginError,
+  userUpdatePasswordError,
 } = require('../constant/user_error_type_constant');
 class UserController {
   // 用户注册控制器;
@@ -62,8 +63,17 @@ class UserController {
   // 用户修改密码控制器;
   async userUpdatePassword(ctx) {
     try {
+      // 获取用户信息;
+      const id = ctx.state.user.id;
+      // 获取用户新修改的密码;
+      const user_pwd = ctx.request.body.user_pwd;
+
       ctx.body = '修改成功';
-    } catch (error) {}
+    } catch (error) {
+      console.error('修改密码失败', error);
+      ctx.app.emit('error', userUpdatePasswordError, ctx);
+      return;
+    }
   }
 }
 

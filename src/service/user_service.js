@@ -55,6 +55,33 @@ class UserService {
     // 判断是否查询到字段;
     return res ? res.dataValues : null;
   }
+  // 更新用户信息;
+  async updateById({
+    id,
+    user_pwd,
+    user_title,
+    user_portrait,
+    user_age,
+    user_sex,
+    user_explained,
+    user_shop,
+    is_admin,
+  }) {
+    // 定义where条件;
+    const whereOpt = { id };
+    // 定义新的用户信息;
+    const newUser = {};
+    // 如果参数存在就赋值到新的用户信息里;
+    user_pwd && Object.assign({ user_pwd });
+    user_title && Object.assign({ user_title });
+    user_portrait && Object.assign({ user_portrait });
+    user_age && Object.assign({ user_age });
+    user_sex && Object.assign({ user_sex });
+    user_explained && Object.assign({ user_explained });
+    user_shop && Object.assign({ user_shop });
+    is_admin && Object.assign({ is_admin });
+    const res = await UserModel.update(newUser, { whereOpt });
+  }
 }
 // 导出实例化对象;
 module.exports = new UserService();

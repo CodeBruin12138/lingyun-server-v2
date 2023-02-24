@@ -4,7 +4,10 @@
 
 const jwt = require('jsonwebtoken');
 // 错误类型;
-const { tokenExpiredError } = require('../middleware/auth_middleware');
+const {
+  tokenExpiredError,
+  jsonWebTokenError,
+} = require('../constant/auth_error_type_constant');
 // 验证用户token;
 const verifyUserToken = async (ctx, next) => {
   try {
@@ -17,19 +20,21 @@ const verifyUserToken = async (ctx, next) => {
     // 把解析到的用户信息挂载到状态;
     ctx.state.user = user;
   } catch (error) {
+    console.log(error);
     switch (error.name) {
       case 'TokenExpiredError':
         console.log('token已过期', error);
         ctx.app.emit('error', tokenExpiredError, ctx);
         return;
-      case 'NotBeforeError':
+      case 'JsonWebTokenError':
         console.log('无效的token', error);
-        ctx.app.emit('error', notBeforeError, ctx);
+        ctx.app.emit('error', jsonWebTokenError, ctx);
         return;
     }
   }
   await next();
 };
+
 module.exports = {
   verifyUserToken,
 };

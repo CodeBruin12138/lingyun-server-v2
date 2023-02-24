@@ -6,7 +6,7 @@ module.exports = {
     code: '20001',
     message: 'token已过期',
   },
-  notBeforeError: {
+  jsonWebTokenError: {
     code: '20002',
     message: '无效的token',
   },

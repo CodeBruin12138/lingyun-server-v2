@@ -34,4 +34,8 @@ module.exports = {
     code: '10008',
     message: '用户登陆失败',
   },
+  userUpdatePasswordError: {
+    code: '10009',
+    message: '修改密码失败',
+  },
 };

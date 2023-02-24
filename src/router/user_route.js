@@ -29,6 +29,7 @@ router.patch(
   '/updatePassword',
   userPassWordFormatIsStandard,
   verifyUserToken,
+  userPasswordEncryption,
   userUpdatePassword
 );
 
