@@ -49,6 +49,5 @@ class UploadController {
     }
   }
 }
-
 // 导出实例化对象;
 module.exports = new UploadController();

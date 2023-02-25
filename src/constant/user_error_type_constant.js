@@ -47,13 +47,3 @@ module.exports = {
     message: '该账号非管理员账号',
   },
 };
-// 定义正则表达式;
-// const zhengze = /^ly_/;
-// 判断是否符合正则;
-// let res = zhengze.test(file);
-// if (!res) {
-//   console.log(res);
-// }
-//  files.forEach(function (file) {
-//    console.log(file);
-//  });
