@@ -3,9 +3,18 @@
  */
 
 // 数据库操作;
-const { createGoods } = require('../service/goods_service');
+const {
+  createGoods,
+  updateGoods,
+  delGoods,
+} = require('../service/goods_service');
 // 错误类型;
-const { addGoodsError } = require('../constant/goods_error_type_constant');
+const {
+  addGoodsError,
+  updateGoodsError,
+  invalidGoodsId,
+  delGoodsError,
+} = require('../constant/goods_error_type_constant');
 class GoodsController {
   // 添加商品;
   async addGoodsController(ctx, next) {
@@ -39,7 +48,46 @@ class GoodsController {
       return;
     }
   }
+  // 修改商品信息;
+  async updateGoodsController(ctx, next) {
+    try {
+      const res = await updateGoods(ctx.params.id, ctx.request.body);
+      if (res) {
+        ctx.body = {
+          code: 0,
+          message: '修改商品信息成功',
+          result: '',
+        };
+      } else {
+        ctx.app.emit('error', invalidGoodsId, ctx);
+        return;
+      }
+    } catch (error) {
+      console.error('修改商品信息失败', error);
+      ctx.app.emit('error', updateGoodsError, ctx);
+      return;
+    }
+  }
+  // 店长直接删除商品;
+  async rootAdminDelController(ctx, next) {
+    try {
+      const res = await delGoods(ctx.params.id);
+      if (res) {
+        ctx.body = {
+          code: 0,
+          message: '删除商品成功',
+          result: '',
+        };
+      } else {
+        ctx.app.emit('error', invalidGoodsId, ctx);
+        return;
+      }
+    } catch (error) {
+      console.error('删除商品失败', error);
+      ctx.app.emit('error', delGoodsError, ctx);
+      return;
+    }
+  }
 }
-
 // 导出实例化对象;
 module.exports = new GoodsController();

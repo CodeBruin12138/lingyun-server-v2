@@ -79,7 +79,6 @@ const isAdmin = async (ctx, next) => {
   }
   await next();
 };
-
 // 读取非法文件并遍历删除;
 const delNonlicetFile = async (ctx, next) => {
   fs.readdir(path.join(__dirname, '../upload'), function (err, files) {

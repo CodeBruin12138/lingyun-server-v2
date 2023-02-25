@@ -39,6 +39,28 @@ const goodsFormatIsStandard = async (ctx, next) => {
   }
   await next();
 };
+// 判断用户是否为当前商品的管理员
+const isGoodsAdmin = async (ctx, next) => {
+  try {
+  } catch (error) {
+    console.log('商品参数错误', error);
+    ctx.app.emit('error', goodsFormatError, ctx);
+    return;
+  }
+  await next();
+};
+// 判断用户是否为当前商品的店长
+const isGoodsRootAdmin = async (ctx, next) => {
+  try {
+  } catch (error) {
+    console.log('商品参数错误', error);
+    ctx.app.emit('error', goodsFormatError, ctx);
+    return;
+  }
+  await next();
+};
 module.exports = {
   goodsFormatIsStandard,
+  isGoodsAdmin,
+  isGoodsRootAdmin,
 };
