@@ -17,6 +17,8 @@ app.use(
       // 是否保留文件扩展名;
       keepExtensions: true,
     },
+    //请求解析限制;
+    parsedMethods: ['POST', 'PUT', 'PATCH', 'DELETE'],
   })
 );
 // 设置静态资源路径;
