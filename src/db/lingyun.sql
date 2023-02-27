@@ -11,11 +11,26 @@
  Target Server Version : 80029 (8.0.29)
  File Encoding         : 65001
 
- Date: 25/02/2023 14:13:14
+ Date: 27/02/2023 16:16:08
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for ly_carts
+-- ----------------------------
+DROP TABLE IF EXISTS `ly_carts`;
+CREATE TABLE `ly_carts`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `goods_id` int NOT NULL COMMENT '商品id',
+  `user_id` int NOT NULL COMMENT '用户id',
+  `number` int NOT NULL COMMENT '产品数量',
+  `selected` tinyint(1) NOT NULL DEFAULT 1 COMMENT '勾选状态',
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for ly_goods
@@ -34,8 +49,9 @@ CREATE TABLE `ly_goods`  (
   `goods_data` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '商品详细信息',
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
+  `deletedAt` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for ly_users
@@ -54,8 +70,9 @@ CREATE TABLE `ly_users`  (
   `user_explained` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户个性签名',
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
+  `deletedAt` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `user_name`(`user_name` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
