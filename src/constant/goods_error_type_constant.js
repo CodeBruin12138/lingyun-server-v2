@@ -26,4 +26,16 @@ module.exports = {
     code: '40006',
     message: '删除商品失败',
   },
+  offGoodsError: {
+    code: '40007',
+    message: '下架商品失败',
+  },
+  onGoodsError: {
+    code: '40008',
+    message: '上架商品失败',
+  },
+  getGoodsListError: {
+    code: '40009',
+    message: '获取商品列表失败',
+  },
 };

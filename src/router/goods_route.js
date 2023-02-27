@@ -9,7 +9,9 @@ const { goodsFormatIsStandard } = require('../middleware/goods_middleware');
 const {
   addGoodsController,
   updateGoodsController,
-  rootAdminDelController,
+  onGoodsController,
+  offGoodsController,
+  getGoodsListController,
 } = require('../controller/goods_controller');
 // 实例化路由并绑定前缀;
 const router = new Router({ prefix: '/goods' });
@@ -30,11 +32,17 @@ router.put(
   updateGoodsController
 );
 // 直接删除商品(仅限发布者操作)
-router.delete(
-  '/rootAdminDel/:id',
-  verifyUserToken,
-  isAdmin,
-  rootAdminDelController
-);
+// router.delete(
+//   '/rootAdminDel/:id',
+//   verifyUserToken,
+//   isAdmin,
+//   rootAdminDelController
+// );
+// 下架商品;
+router.post('/offGoods/:id/off', verifyUserToken, isAdmin, offGoodsController);
+// 上架商品;
+router.post('/onGoods/:id/on', verifyUserToken, isAdmin, onGoodsController);
+// 获取商品列表;
+router.get('/getGoodsList', getGoodsListController);
 
 module.exports = router;

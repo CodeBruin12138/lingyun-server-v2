@@ -7,17 +7,21 @@ const {
   createGoods,
   updateGoods,
   delGoods,
+  onGoods,
+  getWholeGoodsList,
 } = require('../service/goods_service');
 // 错误类型;
 const {
   addGoodsError,
   updateGoodsError,
   invalidGoodsId,
-  delGoodsError,
+  offGoodsError,
+  onGoodsError,
+  getGoodsListError,
 } = require('../constant/goods_error_type_constant');
 class GoodsController {
   // 添加商品;
-  async addGoodsController(ctx, next) {
+  async addGoodsController(ctx) {
     try {
       const {
         goods_name,
@@ -49,7 +53,7 @@ class GoodsController {
     }
   }
   // 修改商品信息;
-  async updateGoodsController(ctx, next) {
+  async updateGoodsController(ctx) {
     try {
       const res = await updateGoods(ctx.params.id, ctx.request.body);
       if (res) {
@@ -69,13 +73,33 @@ class GoodsController {
     }
   }
   // 店长直接删除商品;
-  async rootAdminDelController(ctx, next) {
+  // async rootAdminDelController(ctx) {
+  //   try {
+  //     const res = await delGoods(ctx.params.id);
+  //     if (res) {
+  //       ctx.body = {
+  //         code: 0,
+  //         message: '删除商品成功',
+  //         result: '',
+  //       };
+  //     } else {
+  //       ctx.app.emit('error', invalidGoodsId, ctx);
+  //       return;
+  //     }
+  //   } catch (error) {
+  //     console.error('删除商品失败', error);
+  //     ctx.app.emit('error', delGoodsError, ctx);
+  //     return;
+  //   }
+  // }
+  // 下架商品;
+  async offGoodsController(ctx) {
     try {
       const res = await delGoods(ctx.params.id);
       if (res) {
         ctx.body = {
           code: 0,
-          message: '删除商品成功',
+          message: '下架商品成功',
           result: '',
         };
       } else {
@@ -83,8 +107,47 @@ class GoodsController {
         return;
       }
     } catch (error) {
-      console.error('删除商品失败', error);
-      ctx.app.emit('error', delGoodsError, ctx);
+      console.error('下架商品失败', error);
+      ctx.app.emit('error', offGoodsError, ctx);
+      return;
+    }
+  }
+  // 上架商品;
+  async onGoodsController(ctx) {
+    try {
+      const res = await onGoods(ctx.params.id);
+      console.log(res);
+      if (res) {
+        ctx.body = {
+          code: 0,
+          message: '上架商品成功',
+          result: '',
+        };
+      } else {
+        ctx.app.emit('error', invalidGoodsId, ctx);
+        return;
+      }
+    } catch (error) {
+      console.error('上架商品失败', error);
+      ctx.app.emit('error', onGoodsError, ctx);
+      return;
+    }
+  }
+
+  // 获取商品列表(获取所有商品);
+  async getGoodsListController(ctx) {
+    try {
+      // 获取用户请求的参数,如果不存在就使用默认值;
+      const { pageNum = 1, pageSize = 10 } = ctx.request.query;
+      const res = await getWholeGoodsList(pageNum, pageSize);
+      ctx.body = {
+        code: 0,
+        message: '获取商品列表成功',
+        result: res,
+      };
+    } catch (error) {
+      console.error('获取商品列表失败', error);
+      ctx.app.emit('error', getGoodsListError, ctx);
       return;
     }
   }

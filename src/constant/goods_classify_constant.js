@@ -6,7 +6,7 @@ module.exports = {
   womensWear: {
     default: {
       code: 10001,
-      comment: '默认女装',
+      comment: '女装',
     },
   },
 };
