@@ -11,11 +11,27 @@
  Target Server Version : 80029 (8.0.29)
  File Encoding         : 65001
 
- Date: 27/02/2023 16:16:08
+ Date: 28/02/2023 11:31:49
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for ly_addresses
+-- ----------------------------
+DROP TABLE IF EXISTS `ly_addresses`;
+CREATE TABLE `ly_addresses`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL COMMENT '用户ID',
+  `consignee` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收货人',
+  `phone` bigint NOT NULL COMMENT '收货人电话',
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收货人地址',
+  `is_default` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否默认地址',
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for ly_carts
@@ -52,6 +68,23 @@ CREATE TABLE `ly_goods`  (
   `deletedAt` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for ly_orders
+-- ----------------------------
+DROP TABLE IF EXISTS `ly_orders`;
+CREATE TABLE `ly_orders`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL COMMENT '用户id',
+  `address_id` int NOT NULL COMMENT '地址id',
+  `goods_info` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '商品信息',
+  `total` decimal(10, 2) NOT NULL COMMENT '总价',
+  `order_number` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '订单编号',
+  `status` int NOT NULL DEFAULT 0 COMMENT '订单状态, 0:未支付,1:已支付,2:已发货,3:已签收,4:取消;',
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for ly_users
