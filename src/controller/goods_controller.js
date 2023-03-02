@@ -9,6 +9,7 @@ const {
   delGoods,
   onGoods,
   getWholeGoodsList,
+  getGoodsListByLike,
 } = require('../service/goods_service');
 // 错误类型;
 const {
@@ -18,6 +19,7 @@ const {
   offGoodsError,
   onGoodsError,
   getGoodsListError,
+  invalidGoodsClassifyCode,
 } = require('../constant/goods_error_type_constant');
 class GoodsController {
   // 添加商品;
@@ -151,6 +153,34 @@ class GoodsController {
       return;
     }
   }
+  // 根据用户兴趣获取商品列表;
+  async getGoodsListByLikeController(ctx) {
+    try {
+      // 获取用户请求的参数,如果不存在就使用默认值;
+      const { pageNum = 1, pageSize = 10, goods_classify } = ctx.request.query;
+      const res = await getGoodsListByLike({
+        pageNum,
+        pageSize,
+        goods_classify,
+      });
+      if (res.list.length > 0) {
+        ctx.body = {
+          code: 0,
+          message: '获取商品列表成功',
+          result: res,
+        };
+      } else {
+        console.error('无效的商品分类码', ctx.request.query);
+        ctx.app.emit('error', invalidGoodsClassifyCode, ctx);
+        return;
+      }
+    } catch (error) {
+      console.error('获取商品列表失败', error);
+      ctx.app.emit('error', getGoodsListError, ctx);
+      return;
+    }
+  }
 }
+
 // 导出实例化对象;
 module.exports = new GoodsController();

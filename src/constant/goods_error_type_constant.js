@@ -38,4 +38,8 @@ module.exports = {
     code: '40009',
     message: '获取商品列表失败',
   },
+  invalidGoodsClassifyCode: {
+    code: '40010',
+    message: '无效的商品分类码',
+  },
 };

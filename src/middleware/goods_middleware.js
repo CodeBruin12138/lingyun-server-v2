@@ -1,11 +1,13 @@
 /**
  * 商品相关的中间件;
  */
-
 // 数据库操作;
 
 // 错误类型;
-const { goodsFormatError } = require('../constant/goods_error_type_constant');
+const {
+  goodsFormatError,
+  invalidGoodsClassifyCode,
+} = require('../constant/goods_error_type_constant');
 // 校验商品参数是否合规
 const goodsFormatIsStandard = async (ctx, next) => {
   try {

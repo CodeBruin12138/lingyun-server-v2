@@ -12,6 +12,7 @@ const {
   onGoodsController,
   offGoodsController,
   getGoodsListController,
+  getGoodsListByLikeController,
 } = require('../controller/goods_controller');
 // 实例化路由并绑定前缀;
 const router = new Router({ prefix: '/goods' });
@@ -44,5 +45,7 @@ router.post('/offGoods/:id/off', verifyUserToken, isAdmin, offGoodsController);
 router.post('/onGoods/:id/on', verifyUserToken, isAdmin, onGoodsController);
 // 获取商品列表;
 router.get('/getGoodsList', getGoodsListController);
+//根据喜好获取商品列表;
+router.get('/getGoodsListByLike', getGoodsListByLikeController);
 
 module.exports = router;

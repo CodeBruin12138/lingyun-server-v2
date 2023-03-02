@@ -39,6 +39,22 @@ class GoodsService {
       list: rows,
     };
   }
+  //获取所有商品;
+  async getGoodsListByLike({ pageNum, pageSize, goods_classify }) {
+    // 获取所有商品;
+    const offset = (pageNum - 1) * pageSize;
+    const { count, rows } = await GoodsModel.findAndCountAll({
+      where: { goods_classify },
+      offset,
+      limit: pageSize * 1,
+    });
+    return {
+      pageNum,
+      pageSize,
+      total: count,
+      list: rows,
+    };
+  }
 }
 // 导出实例化对象;
 module.exports = new GoodsService();
