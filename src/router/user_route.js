@@ -19,6 +19,7 @@ const {
   userLogin,
   userUpdatePassword,
   adminLogin,
+  verifyUserTokenController,
 } = require('../controller/user_controller');
 // 实例化路由并绑定前缀;
 const router = new Router({ prefix: '/user' });
@@ -47,5 +48,7 @@ router.post(
   verifyUserIsAdmin,
   adminLogin
 );
+// 校验用户是否登录;
+router.get('/verifyUserToken', verifyUserToken, verifyUserTokenController);
 
 module.exports = router;

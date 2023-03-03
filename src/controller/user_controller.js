@@ -113,7 +113,43 @@ class UserController {
       return;
     }
   }
+  // 直接验证token是否有效;
+  async verifyUserTokenController(ctx) {
+    try {
+      // 获取用户信息;
+      const {
+        id,
+        user_name,
+        user_title,
+        user_portrait,
+        user_age,
+        user_sex,
+        user_explained,
+        user_shop,
+        is_admin,
+      } = ctx.state.user;
+      console.log('用户已登录', ctx.state.user);
+      ctx.body = {
+        code: 0,
+        message: '用户已登录',
+        result: {
+          id,
+          user_name,
+          user_title,
+          user_portrait,
+          user_age,
+          user_sex,
+          user_explained,
+          user_shop,
+          is_admin,
+        },
+      };
+    } catch (error) {
+      console.error('用户未登录', error);
+      ctx.app.emit('error', userLoginError, ctx);
+      return;
+    }
+  }
 }
-
 // 导出实例化对象;
 module.exports = new UserController();
