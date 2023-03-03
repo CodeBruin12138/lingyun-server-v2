@@ -1,11 +1,14 @@
 const path = require('path');
 const Koa = require('koa');
 const koaStatic = require('koa-static');
+const cors = require('@koa/cors');
 const { koaBody } = require('koa-body');
 const router = require('../router/index');
 const errorHandling = require('./errorHandling');
 // 实例化koa对象;
 const app = new Koa();
+// 注册cors,用于解决跨域问题;
+app.use(cors());
 // 注册koa-body,用于解析请求数据;
 app.use(
   koaBody({
