@@ -15,7 +15,10 @@ class UploadController {
       const { file } = ctx.request.files;
       // 生成新的文件名;
       const newName =
-        path.join(__dirname, '../upload') + '/' + 'ly_' + file.newFilename;
+        path.join(__dirname, '../../../upload') +
+        '/' +
+        'ly_' +
+        file.newFilename;
       // 对文件进行重新命名;
       fs.rename(file.filepath, newName, (err) => {
         if (err) {

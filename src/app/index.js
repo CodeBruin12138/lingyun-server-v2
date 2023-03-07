@@ -25,7 +25,7 @@ app.use(
   })
 );
 // 设置静态资源路径;
-app.use(koaStatic(path.join(__dirname, '../upload')));
+app.use(koaStatic(path.join(__dirname, '../../../upload')));
 // 注册路由并判断请求方式是否支持;
 app.use(router.routes()).use(router.allowedMethods());
 // 统一的错误处理;
