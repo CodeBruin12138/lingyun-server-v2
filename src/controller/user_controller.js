@@ -57,7 +57,14 @@ class UserController {
         message: '登录成功',
         result: {
           token: jwt.sign(res, 'lingyun', { expiresIn: '1d' }),
-          user: res,
+          user: {
+            user_name: res.user_name,
+            user_portrait: res.user_portrait,
+            user_title: res.user_title,
+            user_age: res.user_age,
+            user_explained: res.user_explained,
+            user_sex: res.user_sex,
+          },
         },
       };
     } catch (error) {
