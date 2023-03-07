@@ -42,4 +42,8 @@ module.exports = {
     code: '40010',
     message: '无效的商品分类码',
   },
+  getGoodsDetailError: {
+    code: '40011',
+    message: '获取商品详情失败',
+  },
 };

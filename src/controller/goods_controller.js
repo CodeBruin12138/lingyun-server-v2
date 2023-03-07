@@ -10,6 +10,7 @@ const {
   onGoods,
   getWholeGoodsList,
   getGoodsListByLike,
+  getGoodsDetailS,
 } = require('../service/goods_service');
 // 错误类型;
 const {
@@ -20,6 +21,7 @@ const {
   onGoodsError,
   getGoodsListError,
   invalidGoodsClassifyCode,
+  getGoodsDetailError,
 } = require('../constant/goods_error_type_constant');
 class GoodsController {
   // 添加商品;
@@ -177,6 +179,27 @@ class GoodsController {
     } catch (error) {
       console.error('获取商品列表失败', error);
       ctx.app.emit('error', getGoodsListError, ctx);
+      return;
+    }
+  }
+  // 根据商品id获取商品详情;
+  async getGoodsDetailController(ctx) {
+    try {
+      const res = await getGoodsDetailS(ctx.params.id);
+      console.log(res);
+      if (res) {
+        ctx.body = {
+          code: 0,
+          message: '获取商品详情成功',
+          result: res,
+        };
+      } else {
+        ctx.app.emit('error', invalidGoodsId, ctx);
+        return;
+      }
+    } catch (error) {
+      console.error('获取商品详情失败', error);
+      ctx.app.emit('error', getGoodsDetailError, ctx);
       return;
     }
   }

@@ -55,6 +55,11 @@ class GoodsService {
       list: rows,
     };
   }
+  //根据商品id获取商品信息;
+  async getGoodsDetailS(id) {
+    const res = await GoodsModel.findOne({ where: { id } });
+    return res !== null ? res.dataValues : false;
+  }
 }
 // 导出实例化对象;
 module.exports = new GoodsService();
